@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramanujan College Result Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cousine&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue-dark:  #003366;
+    --blue-mid:   #004080;
+    --blue-light: #ccd9e8;
+    --white:      #ffffff;
+    --off-white:  #f0f4f8;
+    --border:     #336699;
+    --text:       #003366;
+    --muted:      #336699;
+    --red:        #990000;
+  }
+  html, body {
+    height: 100%;
+    font-family: 'Cousine', 'Courier New', monospace;
+    font-size: 14px;
+    background-color: var(--off-white);
+    color: var(--text);
+  }
+  .top-bar {
+    background-color: var(--blue-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #336699;
+  }
+  .site-header {
+    background-color: var(--blue-mid);
+    color: var(--white);
+    text-align: center;
+    padding: 18px 20px 14px;
+    border-bottom: 3px solid #002244;
+  }
+  .site-header .college-name {
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .site-header .portal-title {
+    font-size: 13px;
+    margin-top: 5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-light);
+  }
+  .nav-bar {
+    background-color: #002244;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom: 2px solid var(--border);
+  }
+  .nav-bar span {
+    color: var(--blue-light);
+    font-size: 11px;
+    padding: 7px 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-right: 1px solid #336699;
+  }
+  .nav-bar span.active {
+    background-color: var(--blue-dark);
+    color: var(--white);
+  }
+  .page-wrapper {
+    max-width: 680px;
+    margin: 28px auto;
+    padding: 0 16px;
+  }
+  .section-title-bar {
+    background-color: var(--blue-dark);
+    color: var(--white);
+    padding: 6px 12px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-left: 4px solid #6699cc;
+    margin-bottom: 0;
+  }
+  .form-panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: none;
+    padding: 24px 28px 22px;
+  }
+  .form-notice {
+    background-color: var(--blue-light);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--blue-dark);
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--blue-dark);
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+  .field-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+  .field-row label {
+    width: 180px;
+    min-width: 180px;
+    padding-top: 6px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+  }
+  .field-wrap { flex: 1; }
+  input[type="text"] {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #336699;
+    background: var(--off-white);
+    font-family: 'Cousine', 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--text);
+    outline: none;
+  }
+  input[type="text"]:focus {
+    border-color: var(--blue-dark);
+    background: var(--white);
+    outline: 1px solid var(--blue-dark);
+  }
+  .field-hint {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 3px;
+    letter-spacing: 0.03em;
+  }
+  .form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--blue-light);
+  }
+  .btn-submit {
+    background-color: var(--blue-dark);
+    color: var(--white);
+    border: 1px solid #002244;
+    padding: 6px 22px;
+    font-family: 'Cousine', 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .btn-submit:hover { background-color: #002244; }
+  .btn-reset {
+    background-color: var(--off-white);
+    color: var(--blue-dark);
+    border: 1px solid var(--border);
+    padding: 6px 18px;
+    font-family: 'Cousine', 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .btn-reset:hover { background-color: var(--blue-light); }
+  .error-box {
+    display: none;
+    background: #fff5f5;
+    border: 1px solid #cc9999;
+    border-left: 4px solid var(--red);
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--red);
+    margin-top: 14px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .error-box.show { display: block; }
+  #result-view { display: none; }
+  .result-info-bar {
+    background-color: #e6f0e6;
+    border: 1px solid #669966;
+    border-left: 4px solid #336633;
+    padding: 7px 12px;
+    font-size: 12px;
+    color: #224422;
+    margin-bottom: 0;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .result-panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: none;
+    padding: 16px;
+  }
+  .result-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--blue-light);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .result-img {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--border);
+  }
+  .result-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--blue-light);
+  }
+  .site-footer {
+    background-color: var(--blue-dark);
+    color: var(--blue-light);
+    text-align: center;
+    padding: 10px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 40px;
+    border-top: 2px solid #002244;
+  }
+</style>
+</head>
+<body>
+<div class="top-bar">GOVERNMENT AFFILIATED INSTITUTION | EXAMINATION AND RESULTS DIVISION</div>
+<div class="site-header">
+  <div class="college-name">Ramanujan College</div>
+  <div class="portal-title">Student Result Portal</div>
+</div>
+<div class="nav-bar">
+  <span class="active">Result Enquiry</span>
+  <span>Help</span>
+  <span>Contact</span>
+</div>
+
+<!-- LOGIN -->
+<div class="page-wrapper" id="login-section">
+  <div class="section-title-bar">Student Login — Result Verification</div>
+  <div class="form-panel">
+    <div class="form-notice">Enter your registered name and date of birth to access your examination result. All fields are mandatory.</div>
+    <div class="field-row">
+      <label for="student-name">Student Name</label>
+      <div class="field-wrap">
+        <input type="text" id="student-name" autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+    <div class="field-row">
+      <label for="student-dob">Date of Birth</label>
+      <div class="field-wrap">
+        <input type="text" id="student-dob" maxlength="8" autocomplete="off" placeholder="DDMMYYYY">
+        <div class="field-hint">Format: DDMMYYYY (Example: 15082005)</div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-submit" onclick="checkLogin()">Submit</button>
+      <button class="btn-reset" onclick="resetForm()">Reset</button>
+    </div>
+    <div class="error-box" id="error-msg">Access Denied — The entered credentials do not match any records. Please check your name and date of birth.</div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="page-wrapper" id="result-view">
+  <div class="result-info-bar">Access Granted — Result Record Found</div>
+  <div class="result-panel">
+    <div class="result-meta">
+      <span id="result-name-display"></span>
+      <span id="result-timestamp"></span>
+    </div>
+    <img class="result-img" src="https://i.ibb.co/svYRtVKm/result-niharika-kishor.png" alt="Result — Niharika Kishor">
+    <div class="result-actions">
+      <button class="btn-reset" onclick="logout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<div class="site-footer">Ramanujan College | Examination Division | Confidential — For Official Use Only</div>
+
+<script>
+  function normalize(str) { return str.trim().toLowerCase().replace(/\s+/g, ' '); }
+  function checkLogin() {
+    var name = document.getElementById('student-name').value;
+    var dob  = document.getElementById('student-dob').value.trim();
+    var err  = document.getElementById('error-msg');
+    err.classList.remove('show');
+    if (normalize(name) === 'niharika kishor' && dob === '21112006') {
+      document.getElementById('login-section').style.display = 'none';
+      document.getElementById('result-view').style.display = 'block';
+      document.getElementById('result-name-display').textContent = 'Student: ' + name.trim().toUpperCase();
+      var now = new Date();
+      document.getElementById('result-timestamp').textContent =
+        'Accessed: ' + now.toLocaleDateString('en-IN', {day:'2-digit', month:'2-digit', year:'numeric'}) +
+        ' ' + now.toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
+    } else {
+      err.classList.add('show');
+      document.getElementById('student-dob').value = '';
+      document.getElementById('student-dob').focus();
+    }
+  }
+  function resetForm() {
+    document.getElementById('student-name').value = '';
+    document.getElementById('student-dob').value = '';
+    document.getElementById('error-msg').classList.remove('show');
+    document.getElementById('student-name').focus();
+  }
+  function logout() {
+    document.getElementById('result-view').style.display = 'none';
+    document.getElementById('login-section').style.display = 'block';
+    resetForm();
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && document.getElementById('login-section').style.display !== 'none') checkLogin();
+  });
+</script>
+</body>
+</html>
